@@ -1,0 +1,697 @@
+{
+	"id": "8f29558d-db0d-43b0-9941-ad8b1fad63ba",
+	"name": "ZActionApiTest_Workflow",
+	"description": "",
+	"auth": null,
+	"events": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "3a70a9a8-243c-49c2-ae82-3348d938283e",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "e888656b-ed52-4a9a-ab20-495c7bf5585e",
+				"type": "text/javascript",
+				"exec": [
+					"console.log(\"ZAction Workflow Test\")"
+				]
+			}
+		}
+	],
+	"variables": [],
+	"order": [
+		"034a826e-4442-4a24-af8c-20c4ad63368e",
+		"6f28ff1f-9ddb-4f67-a5e6-561806c6d330",
+		"effb2c9d-48eb-442c-b1f1-ac6f29d4c86b",
+		"a2f1f165-c81e-45b4-9a34-5bdf22290eaf",
+		"0cde3d15-9ddd-4ccd-9c3f-0b0320da8b5b",
+		"8411b986-c503-45fa-9ff9-48f5e0ccdbd7",
+		"da3d3501-58ee-4e3b-a765-79185bafcf7b"
+	],
+	"folders_order": [],
+	"folders": [],
+	"requests": [
+		{
+			"id": "034a826e-4442-4a24-af8c-20c4ad63368e",
+			"name": "addWorkflow",
+			"url": "http://{{hostname}}/api/workflow",
+			"description": "workflow 생성",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"name": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"type": "text"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b9d59f1f-7125-4a82-bfbd-9ec757862a1e",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.globals.set(\"workflowId\",jsonData.id);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "5f647ab4-c0cf-4fca-af13-f80f988077a2",
+						"exec": [
+							"",
+							"function uuidgen() {",
+							"  function s4() { return ((1 + Math.random()) * 0x10000 | 0).toString(16).substring(1); }",
+							"  return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();",
+							"}",
+							"",
+							"",
+							"var workflowName = uuidgen() + \"-workflowApiTest\"",
+							"",
+							"pm.globals.set(\"workflowName\", workflowName);",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"// function isProcessingComplete() {",
+							"//     pm.sendRequest({",
+							"//         url: request['url'].replace('{{hostname}}', postman.getEnvironmentVariable('hostname')),",
+							"//         method: request['method'],",
+							"//         body: request['data'].replace('{{workflowName}}', pm.globals.get(\"workflowName\")),",
+							"//         header: request['headers']",
+							"//     }, function (err, response) {",
+							"//         if(err) {",
+							"//             console.log(err);",
+							"//         } else {",
+							"//             if(response.code == 409){",
+							"//                 var workflowName =pm.globals.get(\"workflowName\");",
+							"//                 var number = workflowName.replace(\"WapiTest_\",\"\")",
+							"//                 var Newnumber = parseInt(number)",
+							"//                 // console.log(number)",
+							"//                 Newnumber = Newnumber+1",
+							"//                 workflowName = workflowName.replace(number,String(Newnumber))",
+							"//                 console.log(workflowName)",
+							"                ",
+							"//                 pm.globals.set(\"workflowName\", workflowName);",
+							"//                 isProcessingComplete();",
+							"//             }",
+							"//             else{",
+							"                ",
+							"//             }",
+							"//         }",
+							"//     });",
+							"// }",
+							"// //console.log(request)",
+							"// isProcessingComplete();",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"folder": null,
+			"responses": [
+				{
+					"id": "9396b7e0-78fa-4385-890f-e81219c4b248",
+					"name": "http://{{hostname}}/api/workflow",
+					"status": null,
+					"mime": null,
+					"language": "json",
+					"text": "{\n    \"timestamp\": \"2018-11-22T06:22:07.732+0000\",\n    \"status\": 409,\n    \"error\": \"CONFLICT\",\n    \"message\": \"Workflow[name:WapiTest_101] is exist.\",\n    \"details\": \"uri=/api/workflow\"\n}",
+					"responseCode": {
+						"code": 409,
+						"name": "Conflict"
+					},
+					"requestObject": {
+						"data": "{\n  \"description\": \"postmanTest\",\n  \"modifiedUserId\": \"cloudsvcdev101\",\n  \"name\": \"{{workflowName}}\",\n  \"organizationId\": \"4373e294-b51d-499b-b5a7-3769cf3cef85\",\n  \"packageId\": \"\",\n  \"serverCode\": \"\",\n  \"spaceId\": \"5e745e1f-32db-4ec7-95c1-390bb68c5667\",\n  \"tags\": [\n    \"\"\n  ],\n  \"uiCode\": \"\"\n}",
+						"dataMode": "raw",
+						"headerData": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"description": "",
+								"type": "text"
+							}
+						],
+						"method": "POST",
+						"pathVariableData": [],
+						"queryParams": [],
+						"url": "http://{{hostname}}/api/workflow"
+					},
+					"headers": [
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=UTF-8"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 22 Nov 2018 06:22:07 GMT"
+						}
+					],
+					"cookies": null,
+					"request": "034a826e-4442-4a24-af8c-20c4ad63368e",
+					"collection": "8f29558d-db0d-43b0-9941-ad8b1fad63ba"
+				},
+				{
+					"id": "b48cc746-f3e3-450c-aa38-c6aac0468afd",
+					"name": "http://{{hostname}}/api/workflow",
+					"status": null,
+					"mime": null,
+					"language": "json",
+					"text": "{\n    \"timestamp\": \"2018-11-22T06:22:07.732+0000\",\n    \"status\": 409,\n    \"error\": \"CONFLICT\",\n    \"message\": \"Workflow[name:WapiTest_101] is exist.\",\n    \"details\": \"uri=/api/workflow\"\n}",
+					"responseCode": {
+						"code": 409,
+						"name": "Conflict"
+					},
+					"requestObject": {
+						"data": "{\n  \"description\": \"postmanTest\",\n  \"modifiedUserId\": \"cloudsvcdev101\",\n  \"name\": \"{{workflowName}}\",\n  \"organizationId\": \"4373e294-b51d-499b-b5a7-3769cf3cef85\",\n  \"packageId\": \"\",\n  \"serverCode\": \"\",\n  \"spaceId\": \"5e745e1f-32db-4ec7-95c1-390bb68c5667\",\n  \"tags\": [\n    \"\"\n  ],\n  \"uiCode\": \"\"\n}",
+						"dataMode": "raw",
+						"headerData": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"description": "",
+								"type": "text"
+							}
+						],
+						"method": "POST",
+						"pathVariableData": [],
+						"queryParams": [],
+						"url": "http://{{hostname}}/api/workflow"
+					},
+					"headers": [
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=UTF-8"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 22 Nov 2018 06:22:07 GMT"
+						}
+					],
+					"cookies": null,
+					"request": "034a826e-4442-4a24-af8c-20c4ad63368e",
+					"collection": "8f29558d-db0d-43b0-9941-ad8b1fad63ba"
+				}
+			],
+			"rawModeData": "{\n  \"description\": \"postmanTest\",\n  \"modifiedUserId\": \"cloudsvcdev101\",\n  \"name\": \"{{workflowName}}\",\n  \"organizationId\": \"4373e294-b51d-499b-b5a7-3769cf3cef85\",\n  \"packageId\": \"\",\n  \"serverCode\": \"\",\n  \"spaceId\": \"5e745e1f-32db-4ec7-95c1-390bb68c5667\",\n  \"tags\": [\n    \"\"\n  ],\n  \"uiCode\": \"\"\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "0cde3d15-9ddd-4ccd-9c3f-0b0320da8b5b",
+			"name": "testWorkflow",
+			"url": "http://{{hostname}}/api/test/runs/workflow",
+			"description": "workflow test run 하기",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"description": "",
+					"key": "Content-Type",
+					"name": "Content-Type",
+					"type": "text",
+					"value": "application/json"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b9d59f1f-7125-4a82-bfbd-9ec757862a1e",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.globals.set(\"runId\",jsonData.id);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "5f647ab4-c0cf-4fca-af13-f80f988077a2",
+						"exec": [
+							"",
+							"function uuidgen() {",
+							"  function s4() { return ((1 + Math.random()) * 0x10000 | 0).toString(16).substring(1); }",
+							"  return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();",
+							"}",
+							"",
+							"",
+							"var workflowName = uuidgen() + \"-workflowApiTest\"",
+							"",
+							"pm.globals.set(\"workflowName\", workflowName);",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"// function isProcessingComplete() {",
+							"//     pm.sendRequest({",
+							"//         url: request['url'].replace('{{hostname}}', postman.getEnvironmentVariable('hostname')),",
+							"//         method: request['method'],",
+							"//         body: request['data'].replace('{{workflowName}}', pm.globals.get(\"workflowName\")),",
+							"//         header: request['headers']",
+							"//     }, function (err, response) {",
+							"//         if(err) {",
+							"//             console.log(err);",
+							"//         } else {",
+							"//             if(response.code == 409){",
+							"//                 var workflowName =pm.globals.get(\"workflowName\");",
+							"//                 var number = workflowName.replace(\"WapiTest_\",\"\")",
+							"//                 var Newnumber = parseInt(number)",
+							"//                 // console.log(number)",
+							"//                 Newnumber = Newnumber+1",
+							"//                 workflowName = workflowName.replace(number,String(Newnumber))",
+							"//                 console.log(workflowName)",
+							"                ",
+							"//                 pm.globals.set(\"workflowName\", workflowName);",
+							"//                 isProcessingComplete();",
+							"//             }",
+							"//             else{",
+							"                ",
+							"//             }",
+							"//         }",
+							"//     });",
+							"// }",
+							"// //console.log(request)",
+							"// isProcessingComplete();",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"folder": null,
+			"responses": [
+				{
+					"id": "5643cc4e-dd7c-481a-8aa8-12cafa1839ef",
+					"name": "http://{{hostname}}/api/workflow",
+					"status": null,
+					"mime": null,
+					"language": "json",
+					"text": "{\n    \"timestamp\": \"2018-11-22T06:22:07.732+0000\",\n    \"status\": 409,\n    \"error\": \"CONFLICT\",\n    \"message\": \"Workflow[name:WapiTest_101] is exist.\",\n    \"details\": \"uri=/api/workflow\"\n}",
+					"responseCode": {
+						"code": 409,
+						"name": "Conflict"
+					},
+					"requestObject": {
+						"data": "{\n  \"description\": \"postmanTest\",\n  \"modifiedUserId\": \"cloudsvcdev101\",\n  \"name\": \"{{workflowName}}\",\n  \"organizationId\": \"4373e294-b51d-499b-b5a7-3769cf3cef85\",\n  \"packageId\": \"\",\n  \"serverCode\": \"\",\n  \"spaceId\": \"5e745e1f-32db-4ec7-95c1-390bb68c5667\",\n  \"tags\": [\n    \"\"\n  ],\n  \"uiCode\": \"\"\n}",
+						"dataMode": "raw",
+						"headerData": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"description": "",
+								"type": "text"
+							}
+						],
+						"method": "POST",
+						"pathVariableData": [],
+						"queryParams": [],
+						"url": "http://{{hostname}}/api/workflow"
+					},
+					"headers": [
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=UTF-8"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 22 Nov 2018 06:22:07 GMT"
+						}
+					],
+					"cookies": null,
+					"request": "0cde3d15-9ddd-4ccd-9c3f-0b0320da8b5b",
+					"collection": "8f29558d-db0d-43b0-9941-ad8b1fad63ba"
+				},
+				{
+					"id": "c8dbd3a3-5de4-419e-8a54-dd7a2aa7360f",
+					"name": "http://{{hostname}}/api/workflow",
+					"status": null,
+					"mime": null,
+					"language": "json",
+					"text": "{\n    \"timestamp\": \"2018-11-22T06:22:07.732+0000\",\n    \"status\": 409,\n    \"error\": \"CONFLICT\",\n    \"message\": \"Workflow[name:WapiTest_101] is exist.\",\n    \"details\": \"uri=/api/workflow\"\n}",
+					"responseCode": {
+						"code": 409,
+						"name": "Conflict"
+					},
+					"requestObject": {
+						"data": "{\n  \"description\": \"postmanTest\",\n  \"modifiedUserId\": \"cloudsvcdev101\",\n  \"name\": \"{{workflowName}}\",\n  \"organizationId\": \"4373e294-b51d-499b-b5a7-3769cf3cef85\",\n  \"packageId\": \"\",\n  \"serverCode\": \"\",\n  \"spaceId\": \"5e745e1f-32db-4ec7-95c1-390bb68c5667\",\n  \"tags\": [\n    \"\"\n  ],\n  \"uiCode\": \"\"\n}",
+						"dataMode": "raw",
+						"headerData": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"description": "",
+								"type": "text"
+							}
+						],
+						"method": "POST",
+						"pathVariableData": [],
+						"queryParams": [],
+						"url": "http://{{hostname}}/api/workflow"
+					},
+					"headers": [
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=UTF-8"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 22 Nov 2018 06:22:07 GMT"
+						}
+					],
+					"cookies": null,
+					"request": "0cde3d15-9ddd-4ccd-9c3f-0b0320da8b5b",
+					"collection": "8f29558d-db0d-43b0-9941-ad8b1fad63ba"
+				}
+			],
+			"rawModeData": "{\n  \"actionId\": \"{{actionId}}\",\n  \"createdUserId\": \"cloudsvcdev101\",\n  \"testId\": \"\"\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "6f28ff1f-9ddb-4f67-a5e6-561806c6d330",
+			"name": "getWorkflow",
+			"url": "http://{{hostname}}/api/workflow/{{workflowId}}",
+			"description": "생성한 workflow 조회하기!",
+			"data": null,
+			"dataMode": null,
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d56612b3-64e2-4a2b-8070-932c3dd0f52b",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"folder": null,
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "8411b986-c503-45fa-9ff9-48f5e0ccdbd7",
+			"name": "getWorkflowRun",
+			"url": "http://{{hostname}}/api/test/runs/{{runId}}",
+			"description": "실행한 workflow 로그를 가져오기\n",
+			"data": null,
+			"dataMode": null,
+			"headerData": [
+				{
+					"description": "",
+					"enabled": true,
+					"key": "Content-Type",
+					"type": "text",
+					"value": "application/json"
+				}
+			],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d56612b3-64e2-4a2b-8070-932c3dd0f52b",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"var jsonData = JSON.parse(responseBody);",
+							"console.log(jsonData);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"folder": null,
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "a2f1f165-c81e-45b4-9a34-5bdf22290eaf",
+			"name": "getActionByTargetId",
+			"url": "http://{{hostname}}/api/actions/target/{{workflowId}}",
+			"description": "생성한 Workflow의 actionId값 구하기\n",
+			"data": null,
+			"dataMode": null,
+			"headerData": [
+				{
+					"description": "",
+					"enabled": true,
+					"key": "Content-Type",
+					"type": "text",
+					"value": "application/json"
+				}
+			],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d56612b3-64e2-4a2b-8070-932c3dd0f52b",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.globals.set(\"actionId\",jsonData.id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"folder": null,
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "da3d3501-58ee-4e3b-a765-79185bafcf7b",
+			"name": "deleteWorkflow",
+			"url": "http://{{hostname}}/api/workflow/{{workflowId}}",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"method": "DELETE",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6b69e800-7b08-4b01-8cc2-44bc8b5de8e2",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.globals.clear();"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"folder": null,
+			"rawModeData": "",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "effb2c9d-48eb-442c-b1f1-ac6f29d4c86b",
+			"name": "updateWorkflow",
+			"url": "http://{{hostname}}/api/workflow/{{workflowId}}",
+			"description": "update workflow ",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"method": "PUT",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "29e9727e-697e-4a9a-a3c1-115b3b9d8d24",
+						"exec": [
+							"var json = {",
+							"    \"nodeDataArray\": [{",
+							"        \"category\": \"event\",",
+							"        \"key\": \"111cd1e3-e6b5-40c8-ae1b-274c5136206a\",",
+							"        \"taskType\": \"StartEvent\",",
+							"        \"name\": \"StartEvent\",",
+							"        \"taskTypeDescription\": \"Event\"",
+							"    }, {",
+							"        \"category\": \"activity\",",
+							"        \"key\": \"1292718f-8d5c-4232-8947-7cf8c7fdf223-a1\",",
+							"        \"status\": \"default\",",
+							"        \"taskType\": \"Function\",",
+							"        \"name\": \"a1\",",
+							"        \"taskTypeDescription\": \"Function\"",
+							"    }, {",
+							"        \"category\": \"event\",",
+							"        \"key\": \"333cd1e3-e6b5-40c8-ae1b-274c5136206a\",",
+							"        \"taskType\": \"EndEvent\",",
+							"        \"name\": \"EndEvent\",",
+							"        \"taskTypeDescription\": \"Event\"",
+							"    }],",
+							"    \"linkDataArray\": [{",
+							"        \"from\": \"111cd1e3-e6b5-40c8-ae1b-274c5136206a\",",
+							"        \"to\": \"1292718f-8d5c-4232-8947-7cf8c7fdf223-a1\",",
+							"        \"fromPort\": \"R\",",
+							"        \"toPort\": \"L\"",
+							"    }, {",
+							"        \"from\": \"1292718f-8d5c-4232-8947-7cf8c7fdf223-a1\",",
+							"        \"to\": \"333cd1e3-e6b5-40c8-ae1b-274c5136206a\",",
+							"        \"fromPort\": \"R\",",
+							"        \"toPort\": \"L\"",
+							"    }]",
+							"}",
+							"var jsonString = JSON.stringify(json)",
+							"jsonString = jsonString.replace(/\"/g, \"\\\\\\\"\")",
+							"pm.globals.set(\"updateUiCode\",jsonString);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "d31fadbe-9461-4dc4-8e5f-80cd59bc817c",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"folder": null,
+			"rawModeData": "{\n    \"description\": \"postmanTest\",\n    \"modifiedUserId\": \"cloudsvcdev101\",\n    \"name\": \"{{workflowName}}\",\n    \"organizationId\": \"4373e294-b51d-499b-b5a7-3769cf3cef85\",\n    \"packageId\": \"\",\n    \"serverCode\": \"\",\n    \"spaceId\": \"5e745e1f-32db-4ec7-95c1-390bb68c5667\",\n    \"tags\": [\n        \"\"\n    ],\n    \"uiCode\": \"{{updateUiCode}}\"\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		}
+	]
+}
