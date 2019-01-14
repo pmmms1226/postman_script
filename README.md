@@ -1,2 +1,2 @@
 # postman_script
-hello world
+hello world2
