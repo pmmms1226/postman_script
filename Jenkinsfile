@@ -1,7 +1,7 @@
 pipeline {
   agent any
   stages {
-    stage('error') {
+    stage('ls') {
       steps {
         sh 'ls -al'
       }
