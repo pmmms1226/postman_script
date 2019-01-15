@@ -516,7 +516,11 @@
 							"    pm.response.to.have.status(200);",
 							"});",
 							"var jsonData = JSON.parse(responseBody);",
-							"console.log(jsonData);",
+							"// console.log(jsonData);",
+							"// if(jsonData.dispatchEntity == null){",
+							"//     postman.setNextRequest(\"getWorkflowRun\");",
+							"// }",
+							"",
 							""
 						],
 						"type": "text/javascript"
