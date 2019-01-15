@@ -17,10 +17,5 @@ volumes:[
         sh 'ls -al'
       }
     }
-
-
-
-
-
   }
 }
