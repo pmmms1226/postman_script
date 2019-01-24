@@ -9,9 +9,10 @@ volumes:[
   node ('jenkins-mvn-test') {
     // User Custom Setting ////////////////////////////////////////////////////////////////////////////////////////////////
     checkout scm
-    //echo "${env.getEnvironment()}"
+    
     stage ('Maven Build') {
       container('maven') {
+        sh 'echo "${env.getEnvironment()}"'
         sh 'ls -al'
         sh 'pwd'
       }
