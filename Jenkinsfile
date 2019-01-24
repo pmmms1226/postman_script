@@ -9,7 +9,7 @@ volumes:[
   node ('jenkins-mvn-test') {
 
     // User Custom Setting ////////////////////////////////////////////////////////////////////////////////////////////////
-  
+    checkout scm
     stage ('Maven Build') {
       container('maven') {
         sh 'ls -al'
