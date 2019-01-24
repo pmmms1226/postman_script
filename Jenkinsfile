@@ -13,6 +13,7 @@ volumes:[
     stage ('Maven Build') {
       container('maven') {
         sh 'ls -al'
+        sh 'pwd'
       }
     }
   }
