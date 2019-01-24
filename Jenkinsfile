@@ -3,7 +3,7 @@ podTemplate(label: 'jenkins-mvn-test', containers: [
 ],
 volumes:[
     hostPathVolume(mountPath: '/var/run/docker.sock'  , hostPath: '/var/run/docker.sock'),
-    hostPathVolume(mountPath: '/home/jenkins/.m2'     , hostPath: '/root/.m2/repository')
+    hostPathVolume(mountPath: '/root/.m2/repository'     , hostPath: '/root/.m2/repository')
 ]){
 
   node ('jenkins-mvn-test') {
