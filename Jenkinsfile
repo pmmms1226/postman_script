@@ -12,7 +12,6 @@ volumes:[
   
     stage ('Maven Build') {
       container('maven') {
-        sh 'cd /home/jenkins/.m2'
         sh 'ls -al'
       }
     }
